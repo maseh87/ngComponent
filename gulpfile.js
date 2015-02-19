@@ -8,17 +8,20 @@ var sync = require('run-sequence');
 var karma = require('karma').server;
 // Paths to all src files
 var paths = {
-  src: ['src/**/*.coffee'],
+  src: ['src/**/*.js'],
   dev: ['dev/index.html', 'dev/app.js'],
   dist: './dist',
-  specs: 'specs/**/*.coffee'
+  specs: 'specs/**/*.js'
 };
 
 // lint the coffee
 gulp.task('lint', function() {
   return gulp.src(paths.src)
     .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'));
+    .pipe($.jshint.reporter('jshint-stylish'))
+    .pipe($.ngAnnotate())
+    // .pipe($.uglify())
+    .pipe(gulp.dest(paths.dist));
 });
 
 gulp.task('clean', function() {

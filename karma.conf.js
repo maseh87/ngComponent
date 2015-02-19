@@ -18,7 +18,7 @@ module.exports = function(config) {
       'bower_components/angular/angular.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'specs/**/**.js',
-      'dist/ng-widget.js'
+      'src/ng-component.js'
     ],
 
     // list of files to exclude

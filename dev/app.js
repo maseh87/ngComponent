@@ -1,16 +1,29 @@
-angular.module("app", ['ngWidget'])
+angular.module("app", ['ngComponent'])
 
-.directive('demo', function(Widget) {
+.directive('demo', function(Component) {
 
-  var widget = new Widget();
+  var component = new Component();
 
-  widget.on('click', function(e, scope){
+  component.on('click', function(e, scope){
     scope.message = 'changed';
   });
 
-  widget.scopeOptions({
+  component.scopeOptions({
     'code': 'one-way'
   });
 
-  return widget;
+  component.ready(function(){
+    console.log('ready')
+  });
+
+  component.start(function() {
+    console.log('start');
+  });
+
+  component.beforeReady(function(){
+    console.log('beforeReady');
+  });
+
+
+  return component;
 });
