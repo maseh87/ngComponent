@@ -1,0 +1,34 @@
+{
+  "name": "ngWidget",
+  "version": "0.0.0",
+  "homepage": "https://github.com/maseh87/ngComponent",
+  "authors": [
+    "Hendrixer <willscottmoss@gmail.com>",
+    "Maseh87 <maseh87@gmail.com>"
+  ],
+  "description": "Easier solution for understanding and using angular's directives",
+  "main": "ng-compontent.js",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "keywords": [
+    "angular",
+    "ng",
+    "directives",
+    "compontents",
+    "widget"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular": "~1.3.13",
+    "angular-mocks": "~1.3.13"
+  }
+}
