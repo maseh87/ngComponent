@@ -59,11 +59,9 @@ angular.module('ngComponent', [])
   };
 
   function Component(config) {
-    console.log(cache);
     cache = {
       domEvents: {}
     };
-    console.log(cache);
     angular.extend(this, defaults, config || {});
   }
 
@@ -142,8 +140,8 @@ angular.module('ngComponent', [])
     $get: function () {
       cache = {
         domEvents: {}
-      }
-      console.log('$get');
+      };
+
       return Component;
     },
 
