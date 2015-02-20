@@ -24,6 +24,5 @@ angular.module("app", ['ngComponent'])
     console.log('beforeReady');
   });
 
-
   return component;
 });

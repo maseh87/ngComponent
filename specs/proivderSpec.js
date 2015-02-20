@@ -7,8 +7,8 @@ describe('ngComponent', function(){
   beforeEach(function() {
     mockModule = angular.module('fake', function() {});
 
-    mockModule.config(function(componentProvider) {
-      ngComponentProvider = componentProvider;
+    mockModule.config(function(ComponentProvider) {
+      ngComponentProvider = ComponentProvider;
     });
 
     module('ngComponent', 'fake');
@@ -20,7 +20,7 @@ describe('ngComponent', function(){
     it('should have a function to override the defaults', function() {
       expect(ngComponentProvider.setDefaults).to.be.a('function');
 
-      defaults = ngComponent.setDefaults();
+      defaults = ngComponentProvider.setDefaults();
     });
 
     it('shoud have a defaults object', function() {
@@ -40,5 +40,6 @@ describe('ngComponent', function(){
     });
     it('should have a default template', function() {
       expect(defaults.template).to.be.a('string');
-  });});
+    });
+  });
 });
