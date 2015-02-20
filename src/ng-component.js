@@ -124,6 +124,9 @@ angular.module('ngComponent', [])
 
   return {
     $get: function () {
+      cache = {
+        domEvents: {}
+      }
       return Component;
     },
 
