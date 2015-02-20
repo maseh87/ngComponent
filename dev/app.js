@@ -2,28 +2,36 @@ angular.module("app", ['ngComponent'])
 
 .directive('demo', function(Component) {
 
-  var component = new Component();
-
-  component.on('click', function(e, scope){
+  return new Component()
+  .on('click', function(e, scope){
     scope.message = 'changed';
-  });
-
-  component.scopeOptions({
+    console.log('yooooo')
+  })
+  .scopeOptions({
     'code': 'one-way'
-  });
-
-  component.ready(function(){
+  })
+  .ready(function(){
     console.log('ready')
-  });
-
-  component.start(function() {
+  })
+  .start(function() {
     console.log('start');
-  });
-
-  component.beforeReady(function(){
+  })
+  .beforeReady(function(){
     console.log('beforeReady');
-  });
+  })
+  .children(true);
+})
 
+.directive('other', function(Component){
+  var component =  new Component()
+  .on('click', function(){
+    console.log('im other');
+  })
+  .ready(function(event, scope){
+    scope.thing = 'thing';
+  })
+  .setTemplate('<h1>{{ thing }}</h1>')
+  .scopeOptions({});
 
   return component;
 });

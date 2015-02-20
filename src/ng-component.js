@@ -59,6 +59,11 @@ angular.module('ngComponent', [])
   };
 
   function Component(config) {
+    console.log(cache);
+    cache = {
+      domEvents: {}
+    };
+    console.log(cache);
     angular.extend(this, defaults, config || {});
   }
 
@@ -66,6 +71,13 @@ angular.module('ngComponent', [])
     if (option === true) {
       this.transclude = true;
     }
+
+    return this;
+  };
+
+  Component.prototype.setTemplate = function(template) {
+    this.template = template;
+    return this;
   };
 
   Component.prototype.scopeOptions = function (options) {
@@ -94,32 +106,36 @@ angular.module('ngComponent', [])
         }
       }.bind(this));
     }
+
+    return this;
   };
 
   //should return promise too
   Component.prototype.ready = function (cb) {
     cache.readyFn = cb || function(){};
+    return this;
   };
 
   Component.prototype.on = function(event, cb) {
     cache.domEvents[event] = cb;
+    return this;
   };
 
   Component.prototype.beforeReady = function(cb) {
     cache.beforeReadyFn = cb || function(){};
+    return this;
   };
 
   Component.prototype.start = function(cb) {
     cache.start = cb || function(){};
+    return this;
   };
 
   Component.prototype.parent = function(parent) {
     if (parent) {
       this.require = '^?'+ parent;
-    } else {
-      return this.require;
     }
-
+    return this;
   };
 
   return {
@@ -127,11 +143,12 @@ angular.module('ngComponent', [])
       cache = {
         domEvents: {}
       }
+      console.log('$get');
       return Component;
     },
 
     setDefaults: function(config) {
-      angular.extend(defaults, config);
+      return angular.extend(defaults, config);
     }
   };
 
