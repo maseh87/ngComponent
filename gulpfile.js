@@ -40,6 +40,8 @@ gulp.task('dev', ['build'], function(done) {
   }, done);
 
   gulp.watch(paths.dev, reload);
+  gulp.watch(paths.src, ['build', reload]);
+
 });
 
 // run karma test
