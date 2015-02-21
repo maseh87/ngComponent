@@ -5,66 +5,97 @@ angular.module('ngComponent', [])
   // have to make this local, not global
   // all directives will use this one object them
   // or clear it when they make a new one
-  var cache = {
-    domEvents: {}
-  }; //events
+  // var cache = {
+  //   domEvents: {}
+  // }; //events
 
-  var defaults = {
-    template: '<div>Default ngComponent template, go change it</div>',
-    compile: function() {
-      if (cache.start) {
-        cache.start(this, arguments);
-      }
-      return {
-        pre: function() {
-          if (cache.beforeReadyFn) {
-            cache.beforeReadyFn.apply(this, arguments);
-          }
-        },
+  var globe = {};
 
-        post: function(scope, element) {
-          var args = arguments;
+  var getCompile = function() {
+    return $compile;
+  };
 
-          angular.forEach(cache.domEvents, function(cb, event) {
+  var getDefaults = function() {
+    var cache = {
+      domEvents: {}
+    };
+    var that = this;
 
-            element.on(event, function() {
-              scope.$apply(function(e) {
-                var locals = [].slice.call(args);
-                locals.unshift(e);
+    var defaults = {
+      template: '<div>Default ngComponent template, go change it</div>',
+      compile: function(tElement) {
+        if (cache.start) {
+          cache.start.apply(this, arguments);
+        }
 
-                cb.apply(this, locals);
+        return {
+          pre: function() {
+            if (cache.beforeReadyFn) {
+              cache.beforeReadyFn.apply(this, arguments);
+            }
+          },
 
+          post: function(scope, element, attr) {
+
+            var args = arguments;
+            angular.forEach(cache.domEvents, function(cb, event) {
+
+              element.on(event, function() {
+                scope.$apply(function(e) {
+                  var locals = [].slice.call(args);
+                  locals.unshift(e);
+
+                  cb.apply(this, locals);
+
+                }.bind(this));
               }.bind(this));
             }.bind(this));
-          }.bind(this));
 
 
-          scope.$on('$destroy', function() {
-            angular.forEach(cache.domEvents, function(cb, event) {
-              element.off(event);
+            scope.$on('$destroy', function() {
+              angular.forEach(cache.domEvents, function(cb, event) {
+                element.off(event);
+              });
             });
-          });
 
-          if (cache.readyFn) {
-            cache.readyFn.apply(this, args);
+            if (cache.readyFn) {
+              cache.readyFn.apply(this, args);
+            }
+
+            if (cache._template) {
+              // var compiled = globe.$compile(cache._template)(scope);
+              element.html(cache._template);
+              // element.replaceWith(compiled.html());
+              globe.$compile(element.contents())(scope);
+            }
+
+            if (cache.observe) {
+              angular.forEach(cache.observe, function(cb, attr) {
+                attr.$observe.call(that, attr, cb);
+              });
+            }
           }
-        }
-      };
-    },
+        };
+      },
 
-    transclude: false,
-    restrict: 'EA',
-    replace: false,
-    scope: false
+      transclude: false,
+      restrict: 'EA',
+      replace: false,
+      scope: false
+    };
+
+    return {
+      defaults: angular.copy(defaults),
+      cache: cache
+    };
   };
 
   function Component(config) {
-    console.log(cache);
-    cache = {
-      domEvents: {}
-    };
-    console.log(cache);
-    angular.extend(this, defaults, config || {});
+
+    var data = getDefaults.call(this);
+    this._cache = data.cache;
+    angular.extend(this, data.defaults, config || {});
+
   }
 
   Component.prototype.children = function (option) {
@@ -76,7 +107,7 @@ angular.module('ngComponent', [])
   };
 
   Component.prototype.setTemplate = function(template) {
-    this.template = template;
+    this._cache._template = template;
     return this;
   };
 
@@ -112,22 +143,22 @@ angular.module('ngComponent', [])
 
   //should return promise too
   Component.prototype.ready = function (cb) {
-    cache.readyFn = cb || function(){};
+    this._cache.readyFn = cb || function(){};
     return this;
   };
 
   Component.prototype.on = function(event, cb) {
-    cache.domEvents[event] = cb;
+    this._cache.domEvents[event] = cb;
     return this;
   };
 
   Component.prototype.beforeReady = function(cb) {
-    cache.beforeReadyFn = cb || function(){};
+    this._cache.beforeReadyFn = cb || function(){};
     return this;
   };
 
   Component.prototype.start = function(cb) {
-    cache.start = cb || function(){};
+    this._cache.start = cb || function(){};
     return this;
   };
 
@@ -138,17 +169,21 @@ angular.module('ngComponent', [])
     return this;
   };
 
+  Component.prototype.observe = function(attr, cb) {
+    if (attr && cb && typeof cb === 'function') {
+      this._cache.observe = this._cache.observe || {};
+      this._cache.observe[attr] = cb;
+    }
+  }
+
   return {
-    $get: function () {
-      cache = {
-        domEvents: {}
-      }
-      console.log('$get');
+    $get: function ($compile) {
+      globe.$compile = $compile;
       return Component;
     },
 
     setDefaults: function(config) {
-      return angular.extend(defaults, config);
+      return angular.extend(getDefaults().defaults, config);
     }
   };
 

@@ -35,11 +35,13 @@ gulp.task('dev', ['build'], function(done) {
   bs({
     port: 9500,
     server: {
-      baseDir: ['./dev', './dist']
+      baseDir: ['./dev', './dist', './bower_components']
     }
   }, done);
 
   gulp.watch(paths.dev, reload);
+  gulp.watch(paths.src, ['build', reload]);
+
 });
 
 // run karma test
