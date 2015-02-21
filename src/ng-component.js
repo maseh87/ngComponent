@@ -183,7 +183,7 @@ angular.module('ngComponent', [])
     },
 
     setDefaults: function(config) {
-      // return angular.extend(default, config);
+      return angular.extend(getDefaults().defaults, config);
     }
   };
 
