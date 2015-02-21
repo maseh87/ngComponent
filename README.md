@@ -2,4 +2,4 @@
 
 ### Angular Directives made easy
 
-![angular directives](/images/angular.jpg)
+![angular directives](/images/newPic.png)
