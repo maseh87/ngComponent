@@ -30,7 +30,7 @@ angular.module("app", ['ngComponent'])
   .ready(function(event, scope){
     scope.thing = 'thing';
   })
-  .setTemplate('<h1>{{ thing }}</h1>')
+  // .setTemplate('<h1>{{ thing }}</h1>')
   .scopeOptions({});
 
   return component;
