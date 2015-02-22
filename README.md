@@ -105,3 +105,4 @@ The before ready method give you access to the raw directive before it is compil
   return component;
 });
 ```
+
