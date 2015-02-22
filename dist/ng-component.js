@@ -173,10 +173,10 @@ angular.module('ngComponent', [])
   // };
 
   return {
-    $get: function ($compile) {
+    $get: ["$compile", function ($compile) {
       globe.$compile = $compile;
       return Component;
-    },
+    }],
 
     setDefaults: function(config) {
       return angular.extend(getDefaults().defaults, config);
