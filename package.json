@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "karma-coverage": "^0.2.7",
+    "karma-coveralls": "^0.1.5",
     "mocha-lcov-reporter": "0.0.2"
   }
 }
