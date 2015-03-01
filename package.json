@@ -5,7 +5,7 @@
   "main": "ng-component.js",
   "scripts": {
     "test": "gulp travis",
-    "coveralls": "cat coverage/Chrome " +  "40.0.2214 " + "(Mac OS X 10.10.1)/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "cat coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",

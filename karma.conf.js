@@ -43,7 +43,7 @@ module.exports = function(config) {
     reporters: ['mocha', 'coverage', 'coveralls'],
 
     coverallsReporter: {
-        repoToken: 'Ccawp0Ghvo6c4PBU0xtAvVEMfXMJgKAaY'
+        repoToken: process.env.COVERALLS_REPO_TOKEN
     },
 
     // web server port
