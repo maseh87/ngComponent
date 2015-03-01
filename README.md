@@ -26,7 +26,7 @@ var app = angular.module('myApp', [
 
 #Methods to utilize
 
-##Ready (formally the link function)
+###.ready (formally the link function)
 Call ready to gain access to your directives scope, jQuery wrapped element and the attributes on the directive:
 ```
 var app = angular.module('myApp', [
@@ -41,19 +41,7 @@ var app = angular.module('myApp', [
   return component;
 });
 ```
-##On
-Register event listeners for your directive by using the on function:
-```
-.directive('myNewDirective', function(){
-  var component = new Component()
-  .on('click', function(event){
-    console.log('I clicked!');
-  });
-  
-  return component;
-});
-```
-##Set Template (formally template)
+###.setTemplate (formally template)
 To give your directive a template use the setTemplate method:
 ```
 .directive('myNewDirective', function(){
@@ -66,7 +54,7 @@ To give your directive a template use the setTemplate method:
   return component;
 });
 ```
-##Scope Options (formally scope)
+###.scopeOptions (formally scope)
 To configure the scope of your object use the scopeOptions method:
 ```
 .directive('myNewDirective', function(){
@@ -78,7 +66,7 @@ To configure the scope of your object use the scopeOptions method:
   return component;
 });
 ```
-##Before Ready (formally pre-link)
+###.beforeReady (formally pre-link)
 The beforeReady method lets you configure your directive before the ready function is invoked but after the start function runs:
 ```
 .directive('myNewDirective', function(){
@@ -91,7 +79,7 @@ The beforeReady method lets you configure your directive before the ready functi
 });
 ```
 
-##Start (formally compile)
+###.start (formally compile)
 The before ready method give you access to the raw directive before it is compiled and given its scope:
 ```
 .directive('myNewDirective', function(){
@@ -100,6 +88,18 @@ The before ready method give you access to the raw directive before it is compil
     //This method will execute first
     //your directive will not have it's own scope when this function 
     //is executed.
+  });
+  
+  return component;
+});
+```
+###.on
+Register event listeners for your directive by using the on function:
+```
+.directive('myNewDirective', function(){
+  var component = new Component()
+  .on('click', function(event){
+    console.log('I clicked!');
   });
   
   return component;
