@@ -1,4 +1,4 @@
-# NgComponent
+# NgComponent [![Build Status](https://travis-ci.org/maseh87/ngComponent.svg?branch=master)](https://travis-ci.org/maseh87/ngComponent)
 
 ## An easier way to write angular directives
 
