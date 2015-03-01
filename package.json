@@ -4,7 +4,8 @@
   "description": "Easier solution for understanding and using angular's directives",
   "main": "ng-widget.js",
   "scripts": {
-    "test": "gulp travis"
+    "test": "gulp travis",
+    "coveralls": "cat cover/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "browser-sync": "^2.0.1",
     "chai": "^2.0.0",
+    "coveralls": "^2.11.2",
     "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-jshint": "^1.9.2",
@@ -44,5 +46,8 @@
     "mocha": "^2.1.0",
     "run-sequence": "^1.0.2",
     "vinyl-paths": "^1.0.0"
+  },
+  "dependencies": {
+    "karma-coverage": "^0.2.7"
   }
 }
