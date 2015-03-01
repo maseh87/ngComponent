@@ -113,20 +113,17 @@ Register event listeners for your directive by using the on function:
 5. Make a test and then check your test to verify it passes
 6. Run ```gulp``` and the files will be linted, concatenated, and minified
 7. Push to new branch on your forked repo
-8. Pull request from your branch to ngFx master
+8. Pull request from your branch to ngComponent master
 
 ###Format for pull request
-+ Pretty standard
-  + in your commit message; ```(type) message [issue # closed]```
-    + ```(bug) killed that bug, closes #45```
-  + if you're submitting new animations:
-    + ```(new fx) added 3d rotation animation ```
-+ Submit issues as you see them. There are probably better, faster, easier ways to achieve what ngFx is designed to do so.
++ in your commit message; ```(type) message [issue # closed]```
+  + ```(bug) killed that bug, closes #45```
++ Submit issues as you see them. Let's help everyone learn angular! ;)
 
 ###Testing
 + ngComponent uses Karma + Jasmine + Travis for unit and ci
-+ Make sure you didn't break anything
-  + run ```karma start``` to test in Chrome with karma
++ Verify all the tests are passing
+  + run ```gulp test``` to test in Chrome with karma
 + Features will not be accepted without specs created for them
 + Run ```gulp``` and all the source files will be watched and concatenated
 + Open the ```index.html``` and use the test app as a playground
