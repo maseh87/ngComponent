@@ -1,11 +1,11 @@
 {
-  "name": "ngWidget",
+  "name": "ngComponent",
   "version": "1.0.0",
   "description": "Easier solution for understanding and using angular's directives",
-  "main": "ng-widget.js",
+  "main": "ng-component.js",
   "scripts": {
     "test": "gulp travis",
-    "coveralls": "cat cover/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "cat coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",
@@ -48,6 +48,8 @@
     "vinyl-paths": "^1.0.0"
   },
   "dependencies": {
-    "karma-coverage": "^0.2.7"
+    "karma-coverage": "^0.2.7",
+    "karma-coveralls": "^0.1.5",
+    "mocha-lcov-reporter": "0.0.2"
   }
 }

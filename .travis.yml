@@ -5,4 +5,4 @@ before_script:
   - npm install -g bower
   - bower install
 after_success:
-  -npm run coveralls
+  - npm run coveralls
