@@ -1,5 +1,5 @@
 {
-  "name": "ngWidget",
+  "name": "ngCompoment",
   "version": "0.0.0",
   "homepage": "https://github.com/maseh87/ngComponent",
   "authors": [
@@ -16,7 +16,8 @@
     "angular",
     "ng",
     "directives",
-    "compontents",
+    "components",
+    "widget",
     "widget"
   ],
   "license": "MIT",
