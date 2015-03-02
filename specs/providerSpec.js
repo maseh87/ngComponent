@@ -9,6 +9,8 @@ describe('ngComponent', function(){
 
     mockModule.config(function(ComponentProvider) {
       ngComponentProvider = ComponentProvider;
+      testDirectiveObject = ComponentProvider.$get();
+      testDirectiveObject = new testDirectiveObject();
     });
 
     module('ngComponent', 'fake');
@@ -23,7 +25,7 @@ describe('ngComponent', function(){
       defaults = ngComponentProvider.setDefaults();
     });
 
-    it('shoud have a defaults object', function() {
+    it('should have a defaults object', function() {
       expect(defaults).to.be.a('object');
     });
     it('should have a transclude property equal to false', function() {
@@ -40,6 +42,11 @@ describe('ngComponent', function(){
     });
     it('should have a default template', function() {
       expect(defaults.template).to.be.a('string');
+    });
+  });
+  describe('Directive options', function() {
+    it('should be an object', function() {
+      expect(testDirectiveObject).to.be.an('object');
     });
   });
 });

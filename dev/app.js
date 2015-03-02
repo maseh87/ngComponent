@@ -9,9 +9,10 @@ angular.module("app", ['ngComponent'])
   .scopeOptions({
     'code': 'one-way'
   })
-  .ready(function(scope){
+  .ready(function(scope, element, attrs){
     // console.log('ready')
     scope.message = 'Default';
+    console.log(attrs, 'attrs');
   })
   .start(function() {
     // console.log('start');
