@@ -43,6 +43,24 @@ describe('ngComponent', function(){
     it('should have a default template', function() {
       expect(defaults.template).to.be.a('string');
     });
+    describe('compile defaults method', function() {
+      it('should have a compile property', function() {
+        expect(defaults.compile).to.be.a('function');
+      });
+      it('should return an object', function() {
+        expect(defaults.compile()).to.be.an('object');
+      });
+      describe('pre and post link', function() {
+        it('should have a prelink method', function() {
+          var obj = defaults.compile();
+          expect(obj.pre).to.be.a('function');
+        });
+        it('should have a postlink method', function() {
+          var obj = defaults.compile();
+          expect(obj.post).to.be.a('function');
+        });
+      });
+    });
   });
   
   describe('Directive options', function() {
@@ -76,6 +94,10 @@ describe('ngComponent', function(){
       });
       it('should return an object', function() {
         expect(testDirectiveObject.start(function(){})).to.be.an('object');
+      });
+      it('should set a default callback', function() {
+        var obj = testDirectiveObject.start();
+        expect(testDirectiveObject._cache.start).to.be.a('function');
       });
     });
 
