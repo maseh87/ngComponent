@@ -1,4 +1,4 @@
-# NgComponent [![Build Status](https://travis-ci.org/maseh87/ngComponent.svg?branch=master)](https://travis-ci.org/maseh87/ngComponent) [![Coverage Status](https://coveralls.io/repos/maseh87/ngComponent/badge.svg)](https://coveralls.io/r/maseh87/ngComponent)
+# NgComponent [![Build Status](https://travis-ci.org/maseh87/ngComponent.svg?branch=master)](https://travis-ci.org/maseh87/ngComponent) [![Coverage Status](https://coveralls.io/repos/maseh87/ngComponent/badge.svg?branch=master)](https://coveralls.io/r/maseh87/ngComponent?branch=master)
 
 ## An easier way to write angular directives
 
