@@ -41,3 +41,17 @@ angular.module("app", ['ngComponent'])
 
   return component;
 });
+
+// .directive('other', function(Component){
+//   var component =  new Component()
+//   .on('click', function(){
+//     console.log('im other');
+//   })
+//   .ready(function(event, scope){
+//     scope.thing = 'thing';
+//   })
+//   .setTemplate('<h1>{{ thing }}</h1>')
+//   .scopeOptions({});
+//
+//   return component;
+// });

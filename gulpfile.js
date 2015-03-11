@@ -6,12 +6,30 @@ var del = require('del');
 var vf  = require('vinyl-paths');
 var sync = require('run-sequence');
 var karma = require('karma').server;
+var changelog = require('conventional-changelog');
+var fs = require('fs');
+var bump = require('gulp-bump');
+var yargs = require('yargs');
+
+var argv = yargs.argv,
+    validBumpTypes = "major|minor|patch|prerelease".split("|"),
+    Bump = (argv.bump || 'patch').toLowerCase();
+
+if(validBumpTypes.indexOf(Bump) === -1) {
+  throw new Error('Unrecognized bump "' + Bump + '".');
+}
+
+console.log('bump---------', Bump)
+
+var args = { bump: Bump };
+
 // Paths to all src files
 var paths = {
   src: ['src/**/*.js'],
   dev: ['dev/index.html', 'dev/app.js'],
   dist: './dist',
-  specs: 'specs/**/*.js'
+  specs: 'specs/**/*.js',
+  doc: ['./docs']
 };
 
 // lint the coffee
@@ -41,7 +59,6 @@ gulp.task('dev', ['build'], function(done) {
 
   gulp.watch(paths.dev, reload);
   gulp.watch(paths.src, ['build', reload]);
-
 });
 
 // run karma test
@@ -66,18 +83,43 @@ gulp.task('travis', function(done) {
 });
 
 // generate docs from our comments
-gulp.task('docs', function() {
+// gulp.task('doc', function() {
+//
+// });
 
+gulp.task('bump-version', function(){
+  return gulp.src(['./package.json', './bower.json'])
+    .pipe(bump({type:args.bump })) //major|minor|patch|prerelease
+    .pipe(gulp.dest('./'));
+});
+
+gulp.task('changelog', function(callback) {
+  var pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
+
+  return changelog({
+    repository: pkg.repository.url,
+    version: pkg.version,
+    file: './CHANGELOG.md',
+    subtitle: argv.codename || ''
+  }, function(err, log) {
+    fs.writeFileSync('./CHANGELOG.md', log);
+  });
 });
 
 gulp.task('build', ['clean'], function(done) {
   sync('lint', done);
 });
 
+gulp.task('release', function(done){
+  return sync(
+    'build',
+    'lint',
+    'bump-version',
+    'changelog',
+    done
+  );
+});
+
 gulp.task('default', ['build'], function() {
   gulp.watch(paths.src, ['lint']);
-});
-// bump versions in our pckg.json and bower.json
-gulp.task('bump', function() {
-
 });
