@@ -1,6 +1,6 @@
 {
   "name": "ngComponent",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Easier solution for understanding and using angular's directives",
   "main": "ng-component.js",
   "scripts": {

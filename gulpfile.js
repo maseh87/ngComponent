@@ -99,9 +99,10 @@ gulp.task('changelog', function(callback) {
   return changelog({
     repository: pkg.repository.url,
     version: pkg.version,
-    file: paths.doc + '/CHANGELOG.md'
+    file: './CHANGELOG.md',
+    subtitle: argv.codename || ''
   }, function(err, log) {
-    fs.writeFileSync(paths.doc + '/CHANGELOG.md', log);
+    fs.writeFileSync('./CHANGELOG.md', log);
   });
 });
 
