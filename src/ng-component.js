@@ -27,7 +27,7 @@ angular.module('ngComponent', [])
         return {
           pre: function() {
             if (cache.beforeReadyFn) {
-              cache.beforeReadyFn.apply(this, arguments);
+              cache.beforeReadyFn.apply(that, arguments);
             }
           },
 
@@ -41,11 +41,11 @@ angular.module('ngComponent', [])
                   var locals = [].slice.call(args);
                   locals.unshift(e);
 
-                  cb.apply(this, locals);
+                  cb.apply(that, locals);
 
-                }.bind(this));
-              }.bind(this));
-            }.bind(this));
+                });
+              });
+            });
 
 
             scope.$on('$destroy', function() {
@@ -55,20 +55,12 @@ angular.module('ngComponent', [])
             });
 
             if (cache.readyFn) {
-              cache.readyFn.apply(this, args);
+              cache.readyFn.apply(that, args);
             }
 
             if (cache._template) {
-              // var compiled = globe.$compile(cache._template)(scope);
               element.html(cache._template);
-              // element.replaceWith(compiled.html());
               globe.$compile(element.contents())(scope);
-            }
-
-            if (cache.observe) {
-              angular.forEach(cache.observe, function(cb, attr) {
-                attr.$observe.call(that, attr, cb);
-              });
             }
           }
         };
@@ -157,20 +149,6 @@ angular.module('ngComponent', [])
     this._cache.start = cb || function(){};
     return this;
   };
-
-  Component.prototype.parent = function(parent) {
-    if (parent) {
-      this.require = '^?'+ parent;
-    }
-    return this;
-  };
-
-  // Component.prototype.observe = function(attr, cb) {
-  //   if (attr && cb && typeof cb === 'function') {
-  //     this._cache.observe = this._cache.observe || {};
-  //     this._cache.observe[attr] = cb;
-  //   }
-  // };
 
   return {
     $get: function ($compile) {

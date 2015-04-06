@@ -19,8 +19,6 @@ if(validBumpTypes.indexOf(Bump) === -1) {
   throw new Error('Unrecognized bump "' + Bump + '".');
 }
 
-console.log('bump---------', Bump)
-
 var args = { bump: Bump };
 
 // Paths to all src files
@@ -82,11 +80,6 @@ gulp.task('travis', function(done) {
   sync('build', 'test:ci', done);
 });
 
-// generate docs from our comments
-// gulp.task('doc', function() {
-//
-// });
-
 gulp.task('bump-version', function(){
   return gulp.src(['./package.json', './bower.json'])
     .pipe(bump({type:args.bump })) //major|minor|patch|prerelease
@@ -110,11 +103,17 @@ gulp.task('build', ['clean'], function(done) {
   sync('lint', done);
 });
 
+gulp.task('del:change', function() {
+  return gulp.src('./CHANGELOG.md')
+    .pipe(vf(del));
+});
+
 gulp.task('release', function(done){
   return sync(
     'build',
     'lint',
     'bump-version',
+    'del:change',
     'changelog',
     done
   );
