@@ -62,12 +62,12 @@ describe('ngComponent', function(){
       });
     });
   });
-  
+
   describe('Directive options', function() {
     it('should be an object', function() {
       expect(testDirectiveObject).to.be.an('object');
     });
-    
+
     describe('ready method', function() {
       it('should have a ready method', function() {
         expect(testDirectiveObject.ready).to.be.a('function');
@@ -79,7 +79,7 @@ describe('ngComponent', function(){
         expect(obj).to.be.an('object');
       });
     });
-    
+
     describe('on method', function() {
       it('should have an on method', function() {
         expect(testDirectiveObject.on).to.be.a('function');
@@ -114,16 +114,7 @@ describe('ngComponent', function(){
         // expect(testDirectiveObject.scopeOptions({})).to.be.an('object');
       });
     });
-    
-    describe('parent', function() {
-      it('should have a parent method', function() {
-        expect(testDirectiveObject.parent).to.be.an('function');
-      });
-      it('should return an object', function() {
-        expect(testDirectiveObject.parent('parent')).to.be.an('object');
-      });
-    });
-     
+
      describe('set template', function() {
       it('should have a set template method', function() {
         expect(testDirectiveObject.setTemplate).to.be.an('function');
