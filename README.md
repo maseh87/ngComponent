@@ -59,8 +59,19 @@ To configure the scope of your object use the scopeOptions method:
 ```
 .directive('myNewDirective', function(){
   var component = new Component()
-  .ready(function(scope, element, attributes){
-    
+  
+  // set to 'parent' if you want to use the parent scope
+  .scopeOptions('parent');
+  
+  // set to 'child' if you want to have an isolated scope
+  .scopeOptions('child');
+  
+  // pass an object of attribute names mapped to binding types
+  // suppored binding types: 'one-way', 'two-way', 'function'
+  .scopeOptions({
+    myOneWayAttr: 'one-way',
+    myTwoWayAttr: 'two-way',
+    myEventTriggeringAttr: 'function'
   });
   
   return component;
