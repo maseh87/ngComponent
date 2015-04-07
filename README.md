@@ -6,7 +6,7 @@
 
 The easiest way to start using NgComponent is with bower
 ```sh
-$ bower install --save ng-component
+$ bower install --save ng-components
 ```
 
 ###How to use NgComponent
