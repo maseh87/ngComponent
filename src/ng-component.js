@@ -50,7 +50,7 @@ angular.module('ngComponent', [])
 
             scope.$on('$destroy', function() {
               angular.forEach(cache.domEvents, function(cb, event) {
-                element.off(event);
+                element.off(event, cb);
               });
             });
 
