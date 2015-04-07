@@ -1,6 +1,6 @@
 {
   "name": "ngCompoment",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/maseh87/ngComponent",
   "authors": [
     "Hendrixer <willscottmoss@gmail.com>",
@@ -29,7 +29,9 @@
     "tests",
     "specs",
     "dev",
-    "src"
+    "src",
+    "coverage",
+    "images"
   ],
   "devDependencies": {
     "angular": "~1.3.13",
