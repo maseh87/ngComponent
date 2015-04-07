@@ -6,15 +6,16 @@
 
 The easiest way to start using NgComponent is with bower
 ```sh
-$ bower install --save ng-component
+$ bower install --save ng-components
 ```
 
 ###How to use NgComponent
 + NgComponent uses a more "jQuery" approach to directives so it makes more sense. 
 
 + To start, inject the Component service into your directive and create a default directive definition object:
-```sh
-var app = angular.module('myApp', [
++ 
+```javascript
+angular.module('myApp', [
   'ngComponent'
 ])
 .directive('myNewDirective', function(){
@@ -28,8 +29,8 @@ var app = angular.module('myApp', [
 
 ###.ready (formally the link function)
 Call ready to gain access to your directives scope, jQuery wrapped element and the attributes on the directive:
-```
-var app = angular.module('myApp', [
+```javascript
+angular.module('myApp', [
   'ngComponent'
 ])
 .directive('myNewDirective', function(){
@@ -43,7 +44,7 @@ var app = angular.module('myApp', [
 ```
 ###.setTemplate (formally template)
 To give your directive a template use the setTemplate method:
-```
+```javascript
 .directive('myNewDirective', function(){
   var component = new Component()
   .on('click', function(event){
@@ -56,11 +57,22 @@ To give your directive a template use the setTemplate method:
 ```
 ###.scopeOptions (formally scope)
 To configure the scope of your object use the scopeOptions method:
-```
+```javascript
 .directive('myNewDirective', function(){
   var component = new Component()
-  .ready(function(scope, element, attributes){
-    
+  
+  // set to 'parent' if you want to use the parent scope
+  .scopeOptions('parent');
+  
+  // set to 'child' if you want to have an isolated scope
+  .scopeOptions('child');
+  
+  // pass an object of attribute names mapped to binding types
+  // suppored binding types: 'one-way', 'two-way', 'function'
+  .scopeOptions({
+    myOneWayAttr: 'one-way',
+    myTwoWayAttr: 'two-way',
+    myEventTriggeringAttr: 'function'
   });
   
   return component;
@@ -68,7 +80,7 @@ To configure the scope of your object use the scopeOptions method:
 ```
 ###.beforeReady (formally pre-link)
 The beforeReady method lets you configure your directive before the ready function is invoked but after the start function runs:
-```
+```javascript
 .directive('myNewDirective', function(){
   var component = new Component()
   .beforeReady(function(scope, element, attributes){
@@ -81,7 +93,7 @@ The beforeReady method lets you configure your directive before the ready functi
 
 ###.start (formally compile)
 The before ready method give you access to the raw directive before it is compiled and given its scope:
-```
+```javascript
 .directive('myNewDirective', function(){
   var component = new Component()
   .start(function(element, attributes){
@@ -95,7 +107,7 @@ The before ready method give you access to the raw directive before it is compil
 ```
 ###.on
 Register event listeners for your directive by using the on function:
-```
+```javascript
 .directive('myNewDirective', function(){
   var component = new Component()
   .on('click', function(event){
@@ -105,6 +117,63 @@ Register event listeners for your directive by using the on function:
   return component;
 });
 ```
+#Overiding defaults
+You can pass in a directive object to `Component` to override defaults.
+```javascript
+angular.module('myApp', [
+  'ngComponent'
+])
+.directive('myNewComponent', function(){
+  var component = new Component({
+    template: '<h1>{{ ready }}</h1>',
+    restrict: 'EA'
+  })
+  .ready(function(scope, element, attributes){
+    scope.ready = '(づ￣ ³￣)づ';
+  });
+  return component;
+});
+```
+
+# Subclassing components
+Since directives are classes now, you can subclass them
+
+```javascript
+angular.module('myApp', [
+  'ngComponent'
+])
+.factory('CardComponent', function(Component){
+  class CardComponet extends Component {
+    constructor(opts){
+      super(opts);
+      this.templateUrl = 'path/to/card-component.html';
+      this.restrict = 'E';
+      this.replace = true;
+    }
+  }
+
+  return CardComponent;
+})
+.directive('feedCard', function(CardComponent){
+  return new CardComponent({
+  .beforeReady(function(scope){
+    scope.dataForChildDirectives = [1,2,3];
+  })
+  .ready(function(scope, element, attributes){
+    scope.ready = '(づ￣ ³￣)づ';
+  })
+  .on('mouseenter', function(evt, scope, element){
+    // no need to $apply here
+    // we do!
+    element.css('color', 'red');
+    scope.thing = true;
+  })
+});
+```
+# Features
+* `.on()` DOM events are wrapped in a `$scope.apply` so you dont have to.
+* All DOM events are cleaned up on `$destroy` to prevent memory leaks so you don't have to.
+
 ##Contributing
 1. Fork it
 2. Clone your fork
