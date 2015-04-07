@@ -13,7 +13,7 @@ $ bower install --save ng-components
 + NgComponent uses a more "jQuery" approach to directives so it makes more sense. 
 
 + To start, inject the Component service into your directive and create a default directive definition object:
-```sh
+```javascript
 var app = angular.module('myApp', [
   'ngComponent'
 ])
@@ -28,7 +28,7 @@ var app = angular.module('myApp', [
 
 ###.ready (formally the link function)
 Call ready to gain access to your directives scope, jQuery wrapped element and the attributes on the directive:
-```
+```javascript
 var app = angular.module('myApp', [
   'ngComponent'
 ])
@@ -43,7 +43,7 @@ var app = angular.module('myApp', [
 ```
 ###.setTemplate (formally template)
 To give your directive a template use the setTemplate method:
-```
+```javascript
 .directive('myNewDirective', function(){
   var component = new Component()
   .on('click', function(event){
@@ -56,7 +56,7 @@ To give your directive a template use the setTemplate method:
 ```
 ###.scopeOptions (formally scope)
 To configure the scope of your object use the scopeOptions method:
-```
+```javascript
 .directive('myNewDirective', function(){
   var component = new Component()
   
@@ -79,7 +79,7 @@ To configure the scope of your object use the scopeOptions method:
 ```
 ###.beforeReady (formally pre-link)
 The beforeReady method lets you configure your directive before the ready function is invoked but after the start function runs:
-```
+```javascript
 .directive('myNewDirective', function(){
   var component = new Component()
   .beforeReady(function(scope, element, attributes){
@@ -92,7 +92,7 @@ The beforeReady method lets you configure your directive before the ready functi
 
 ###.start (formally compile)
 The before ready method give you access to the raw directive before it is compiled and given its scope:
-```
+```javascript
 .directive('myNewDirective', function(){
   var component = new Component()
   .start(function(element, attributes){
@@ -106,7 +106,7 @@ The before ready method give you access to the raw directive before it is compil
 ```
 ###.on
 Register event listeners for your directive by using the on function:
-```
+```javascript
 .directive('myNewDirective', function(){
   var component = new Component()
   .on('click', function(event){
