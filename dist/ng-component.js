@@ -50,7 +50,7 @@ angular.module('ngComponent', [])
 
             scope.$on('$destroy', function() {
               angular.forEach(cache.domEvents, function(cb, event) {
-                element.off(event);
+                element.off(event, cb);
               });
             });
 
@@ -96,6 +96,11 @@ angular.module('ngComponent', [])
 
   Component.prototype.setTemplate = function(template) {
     this._cache._template = template;
+    return this;
+  };
+
+  Component.prototype.setTemplateUrl = function(url) {
+    this._cache._templateUrl = url;
     return this;
   };
 

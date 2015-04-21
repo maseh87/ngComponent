@@ -99,6 +99,11 @@ angular.module('ngComponent', [])
     return this;
   };
 
+  Component.prototype.setTemplateUrl = function(url) {
+    this._cache._templateUrl = url;
+    return this;
+  };
+
   Component.prototype.scopeOptions = function (options) {
     if (options === 'parent') {
       this.scope = false;
