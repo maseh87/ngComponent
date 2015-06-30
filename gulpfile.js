@@ -24,7 +24,7 @@ var args = { bump: Bump };
 // Paths to all src files
 var paths = {
   src: ['src/**/*.js'],
-  dev: ['dev/index.html', 'dev/app.js'],
+  dev: ['dev/index.html', 'dev/app.js', 'dev/template.html'],
   dist: './dist',
   specs: 'specs/**/*.js',
   doc: ['./docs']
